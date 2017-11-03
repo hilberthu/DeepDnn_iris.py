@@ -1,3 +1,4 @@
+#http://blog.csdn.net/u012319493/article/details/52786512?locationNum=3&fps=1 C++ version
 import copy, numpy as np
 
 np.random.seed(0)
