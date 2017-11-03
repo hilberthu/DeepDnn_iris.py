@@ -31,7 +31,7 @@ for oneResult in predict_result:
     print(np.argmax(oneResult),np.argmax(y_test[index]))
     index += 1
 
-toPredictImage = mping.imread("images/2.png")
+toPredictImage = mping.imread("images/1.png")
 
 wolf_gray=(toPredictImage[:,:,1])
 
@@ -47,10 +47,10 @@ with sess:
 topredictList1[0][0] = newImage
 for i in range(28):
     for j in range(28):
-        if(topredictList1[0][0][i][j] > 0.9):
+        if(topredictList1[0][0][i][j] > 0.98):
             topredictList1[0][0][i][j] = 0
         else:
-            topredictList1[0][0][i][j] = 1
+            topredictList1[0][0][i][j] = 0.9
 
 plt.imshow(X_test[0][0])
 plt.show()

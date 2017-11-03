@@ -22,7 +22,8 @@ from keras.utils import np_utils
 from keras.models import Sequential
 from keras.layers import Dense, Activation, Convolution2D, MaxPooling2D, Flatten
 from keras.optimizers import Adam
-
+#sudo pip install h5py
+import h5py
 # download the mnist to the path '~/.keras/datasets/' if it is the first time to be called
 # X shape (60,000 28x28), y shape (10,000, )
 (X_train, y_train), (X_test, y_test) = mnist.load_data()
@@ -33,6 +34,8 @@ X_test = X_test.reshape(-1, 1,28, 28)/255.
 y_train = np_utils.to_categorical(y_train, num_classes=10)
 y_test = np_utils.to_categorical(y_test, num_classes=10)
 
+#X_train = X_train[:10000]
+#y_train = y_train[:10000]
 # Another way to build your CNN
 model = Sequential()
 
@@ -89,3 +92,5 @@ loss, accuracy = model.evaluate(X_test, y_test)
 
 print('\ntest loss: ', loss)
 print('\ntest accuracy: ', accuracy)
+
+model.save('mnist_model.h5')
