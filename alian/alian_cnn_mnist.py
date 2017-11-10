@@ -1,0 +1,1 @@
+#softmax偏导数求解过程：http://www.jianshu.com/p/ffa51250ba2e
