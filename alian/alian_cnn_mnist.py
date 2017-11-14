@@ -2,6 +2,8 @@
 #卷积神经网络 python实现 ，对mnist分类
 # softmax偏导数求解过程：http://www.jianshu.com/p/ffa51250ba2e
 #C++ 实现的版本 http://blog.csdn.net/shangming111/article/details/41082631
+#https://www.cnblogs.com/alexanderkun/p/4863691.html
+
 
 import numpy as np
 np.random.seed(1337)  # for reproducibility
@@ -15,7 +17,11 @@ from keras.models import Sequential
 from keras.layers import Dense, Activation, Convolution2D, MaxPooling2D, Flatten
 from keras.optimizers import Adam
 #sudo pip install h5py
-import h5py
+
+a = np.array([[0,0,0,0],[0,1,3,0],[0,2,2,0],[0,0,0,0]])
+b= np.array([[0.1,0.2],[0.2,0.4]])
+print(convolve2d(a,b,mode='valid'))
+#import h5py
 # download the mnist to the path '~/.keras/datasets/' if it is the first time to be called
 # X shape (60,000 28x28), y shape (10,000, )
 (X_train, y_train), (X_test, y_test) = mnist.load_data()
@@ -67,6 +73,10 @@ def sigmoid_output_to_derivative(output):
     return output * (1 - output)
 
 print(sigmoid(0))
+
+a = np.array([[0,0,0,0],[0,1,3,0],[0,2,2,0],[0,0,0,0]])
+b= np.array([[0.1,0.2],[0.2,0.4]])
+print(convolve2d(a,b,mode='valid'))
 #对图像进行卷积，边缘填充为0
 def _convolve(img, fil,img_out):
     fil_heigh = fil.shape[0]  # 获取卷积核(滤波)的高度
