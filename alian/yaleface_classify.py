@@ -35,7 +35,7 @@ def loadImages():
     image_index = 0
     for i in range(len(list_paths)):
         path = os.path.join(rootdir_image, list_paths[i])
-        if path.find("subject") < 0:
+        if (path.find("subject") < 0):
             continue
 
         im = Image.open(path)
@@ -140,3 +140,51 @@ print('\ntest loss: ', loss)
 print('\ntest accuracy: ', accuracy)
 
 model.save('yale_model.h5')
+
+'''
+Epoch 1/20
+29s - loss: 2.7419 - acc: 0.0843
+Epoch 2/20
+26s - loss: 2.5541 - acc: 0.2289
+Epoch 3/20
+27s - loss: 2.2768 - acc: 0.3554
+Epoch 4/20
+26s - loss: 1.8240 - acc: 0.5000
+Epoch 5/20
+25s - loss: 1.2757 - acc: 0.5964
+Epoch 6/20
+26s - loss: 0.8692 - acc: 0.7530
+Epoch 7/20
+26s - loss: 0.5652 - acc: 0.8554
+Epoch 8/20
+25s - loss: 0.4259 - acc: 0.8735
+Epoch 9/20
+28s - loss: 0.3139 - acc: 0.8916
+Epoch 10/20
+30s - loss: 0.2561 - acc: 0.9398
+Epoch 11/20
+28s - loss: 0.3536 - acc: 0.9157
+Epoch 12/20
+28s - loss: 0.1820 - acc: 0.9578
+Epoch 13/20
+28s - loss: 0.0953 - acc: 0.9940
+Epoch 14/20
+28s - loss: 0.0516 - acc: 0.9940
+Epoch 15/20
+28s - loss: 0.0423 - acc: 0.9940
+Epoch 16/20
+30s - loss: 0.0256 - acc: 1.0000
+Epoch 17/20
+28s - loss: 0.0243 - acc: 1.0000
+Epoch 18/20
+28s - loss: 0.0189 - acc: 1.0000
+Epoch 19/20
+29s - loss: 0.0116 - acc: 1.0000
+Epoch 20/20
+30s - loss: 0.0095 - acc: 1.0000
+
+Testing ------------
+20/20 [==============================] - 3s
+('\ntest loss: ', 0.0060974806547164917)
+('\ntest accuracy: ', 1.0)
+'''
