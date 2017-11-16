@@ -54,13 +54,15 @@ S4_out = np.zeros((64,7,7))
 # 全连接1：将S3_out进行光栅化变成(64 * 7 * 7) = (3136)，并且将向量长度降到1024
 Flat1 = np.random.rand(3136,)
 W1 = np.random.rand(3136,1024)
-
+W1_d = np.random.rand(3136,1024)
 
 #全连接2:将长度为1024的向量降维到10
 Flat2 = np.random.rand(1024,)
 W2 = np.random.rand(1024,10)
+W2_d = np.zeros((1024,10))
 
-Vector10 = np.random.rand(10,)
+softmax_input = np.random.rand(10,)
+softmax_result = np.random.rand(10,)
 
 def sigmoid(x):
     #print("sigmod x=",x)
@@ -71,6 +73,12 @@ def sigmoid(x):
 # convert output of sigmoid function to its derivative
 def sigmoid_output_to_derivative(output):
     return output * (1 - output)
+
+def softmax(x):
+    """Compute softmax values for each sets of scores in x."""
+    e_x = np.exp(x - np.max(x))
+    return e_x / e_x.sum()
+
 
 print(sigmoid(0))
 
@@ -156,7 +164,30 @@ for nEpoch in range(EPOCH_NUM):
                     Flat1[i* 49 + h * 7 + w] = S4_out[i][h][w]
 
         Flat2 = Flat1.dot(W1)
-        Vector10 = Flat2.dot(W2)
+        softmax_input = Flat2.dot(W2)
+        softmax_result = softmax(softmax_input)
+
+        #开始反向传播
+
+        #先计算W2_d
+        softmax_index = y_train[nTrainIndex]
+        for h in range(W2_d.shape[0]):
+            for w in range(W2_d.shape[1]):
+                temp = -1/softmax_input[w]
+                delta_az = 0
+                if int(softmax_index) ==  int(w):
+                    delta_az = softmax_result[w] * (1-softmax_result[w])
+                else:
+                    delta_az = -softmax_result[w]*softmax_result[nTrainIndex]
+                W2_d[h][w] = temp * delta_az * Flat2[h]
+
+        #再计算W1_d
+        for h in range(W1_d.shape[0]):
+            for w in range(W1_d.shape[1]):
+                W1_d[h][w] =  W2[w][softmax_index]*Flat1[h]/softmax_result[softmax_index]
+
+
+        #softmax
         print("alian")
 
 
