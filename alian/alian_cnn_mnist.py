@@ -3,6 +3,7 @@
 # softmax偏导数求解过程：http://www.jianshu.com/p/ffa51250ba2e
 #C++ 实现的版本 http://blog.csdn.net/shangming111/article/details/41082631
 #https://www.cnblogs.com/alexanderkun/p/4863691.html
+#matlab CNN 代码解析
 
 
 import numpy as np
@@ -18,9 +19,9 @@ from keras.layers import Dense, Activation, Convolution2D, MaxPooling2D, Flatten
 from keras.optimizers import Adam
 #sudo pip install h5py
 
-a = np.array([[0,0,0,0],[0,1,3,0],[0,2,2,0],[0,0,0,0]])
-b= np.array([[0.1,0.2],[0.2,0.4]])
-print(convolve2d(a,b,mode='valid'))
+#a = np.array([[0,0,0,0],[0,1,3,0],[0,2,2,0],[0,0,0,0]])
+#b= np.array([[0.1,0.2],[0.2,0.4]])
+#print(convolve2d(a,b,mode='valid'))
 #import h5py
 # download the mnist to the path '~/.keras/datasets/' if it is the first time to be called
 # X shape (60,000 28x28), y shape (10,000, )
@@ -39,7 +40,11 @@ EPOCH_NUM = 1
 
 #32个5*5的卷积核
 C1 = np.random.rand(32,5,5)
+
+Bias_C1 = np.random.rand(32)
+
 C1_Out = np.zeros((32,28,28))
+C1_delta = np.zeros((32,28,28))//C1的残差
 
 #池化层输出
 S2_out = np.zeros((32,14,14))
@@ -180,6 +185,7 @@ for nEpoch in range(EPOCH_NUM):
                 else:
                     delta_az = -softmax_result[w]*softmax_result[nTrainIndex]
                 W2_d[h][w] = temp * delta_az * Flat2[h]
+
 
         #再计算W1_d
         for h in range(W1_d.shape[0]):
