@@ -4,11 +4,7 @@ np.random.seed(1337)  # for reproducibility
 from keras.datasets import mnist
 from keras.utils import np_utils
 import matplotlib.image as mping
-from keras.models import Sequential
-from keras.layers import Dense, Activation, Convolution2D, MaxPooling2D, Flatten
-from keras.optimizers import Adam
 from keras.models import load_model
-from scipy import misc
 import tensorflow as tf
 import matplotlib.pyplot as plt
 model = load_model("mnist_model.h5")
